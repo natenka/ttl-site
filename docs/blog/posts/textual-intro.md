@@ -83,3 +83,162 @@ if __name__ == "__main__":
 * compose - construct a user interface with widgets
   * method may return a list of widgets, but it is generally easier to yield them
 * action_toggle_dark - defines an action method. The BINDINGS list above tells Textual to run this action when the user hits the D key.
+
+### Widgets
+
+```python
+from textual.containers import HorizontalGroup, VerticalScroll
+from textual.widgets import Button, Digits, Footer, Header
+
+
+class TimeDisplay(Digits):
+    """A widget to display elapsed time"""
+
+
+class Stopwatch(HorizontalGroup):
+    """A stopwatch widget"""
+
+    def compose(self) -> ComposeResult:
+        """Create child widgets of a stopwatch"""
+        yield Button("Start", id="start", variant="success")
+        yield Button("Stop", id="stop", variant="error")
+        yield Button("Reset", id="reset")
+        yield TimeDisplay("00:00:00.00")
+
+
+# only new line
+class StopwatchApp(App):
+    def compose(self) -> ComposeResult:
+        yield VerticalScroll(Stopwatch(), Stopwatch(), Stopwatch())
+```
+
+Containers - containers are widgets which contain other widgets
+
+* Horizontal and VerticalScroll
+
+
+Button:
+
+* label (start, stop, reset)
+* id
+* variant - default style
+
+
+VerticalScroll:
+
+* will scroll if the contents don't quite fit
+* takes care of key bindings required for scrolling, like Up, Down, ++pgdn++, ++pgup++, Home, End, etc.
+
+
+When widgets contain other widgets (like VerticalScroll) they will typically
+accept their child widgets as positional arguments. So the line 
+``yield VerticalScroll(Stopwatch(), Stopwatch(), Stopwatch())`` creates a VerticalScroll
+containing three Stopwatch widgets.
+
+
+### Textual CSS
+
+
+#### Manual style
+
+Every widget has a styles object with a number of attributes that impact how
+the widget will appear.
+
+```python
+self.styles.background = "blue"
+self.styles.color = "white"
+```
+
+#### Textual CSS
+
+```css
+Stopwatch {   
+    background: $boost;
+    height: 5;
+    margin: 1;
+    min-width: 50;
+    padding: 1;
+}
+
+TimeDisplay {   
+    text-align: center;
+    color: $foreground-muted;
+    height: 3;
+}
+
+Button {
+    width: 16;
+}
+
+#start {
+    dock: left;
+}
+
+#stop {
+    dock: left;
+    display: none;
+}
+
+#reset {
+    dock: right;
+}
+```
+
+``background: $boost`` sets the background color to ``$boost``. The $ prefix picks a
+pre-defined color from the builtin theme. There are other ways to specify
+colors such as "blue" or rgb(20,46,210).
+
+
+
+When the declaration begins with a ``#`` then the styles will be applied to widgets
+with a matching "id" attribute. We've set an ID on the Button widgets we
+yielded in compose. For instance the first button has id="start" which matches
+#start in the CSS.
+
+```css
+#start {
+    dock: left;
+}
+```
+
+Hide
+
+```css
+#stop {
+    dock: left;
+    display: none;
+}
+
+```
+
+#### Dynamic CSS
+
+CSS class
+
+```
+.started {
+    background: $success-muted;
+    color: $text;
+}
+
+.started TimeDisplay {
+    color: $foreground;
+}
+
+.started #start {
+    display: none
+}
+
+.started #stop {
+    display: block
+}
+
+.started #reset {
+    visibility: hidden
+}
+```
+
+
+Combining the two selectors with a space ``.started #start`` creates a new
+selector that will match the start button only if it is also inside a container
+with a CSS class of "started".
