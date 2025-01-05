@@ -1,5 +1,13 @@
 from textual.app import App, ComposeResult
-from textual.widgets import Footer, Header
+from textual.containers import HorizontalGroup, VerticalScroll
+from textual.widgets import Button, Digits, Footer, Header
+
+
+class TimeDisplay(Digits):
+    """A widget to display elapsed time"""
+
+
+class Stopwatch(HorizontalGroup):
 
 
 class StopwatchApp(App):
