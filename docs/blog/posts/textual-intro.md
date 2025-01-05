@@ -8,9 +8,7 @@ tags:
   - cli
 ---
 
-# Textual
-
-!!! note "Допис буде поступово доповнюватися"
+# Нотатка по Textual
 
 ## TODO
 
@@ -19,6 +17,13 @@ Phase 1
 * read textual docs (write notes)
 * asyncio review (my lectures)
 * rewrite pyneng tool
+
+Тестові приклади, поки читаю доки:
+
+* зробити вибірку по номеру теми, під час введення номеру у widget Input (тут ще питання тільки по номеру теми чи ще й по номеру розділа)
+* зробити вибірку по назві теми, під час введення номеру у widget Input
+* можна все об'єднати в остаточній версії
+
 
 <!-- more -->
 
@@ -193,7 +198,7 @@ colors such as "blue" or rgb(20,46,210).
 When the declaration begins with a ``#`` then the styles will be applied to widgets
 with a matching "id" attribute. We've set an ID on the Button widgets we
 yielded in compose. For instance the first button has id="start" which matches
-#start in the CSS.
+``#start`` in the CSS.
 
 ```css
 #start {
@@ -318,7 +323,4 @@ second.
 If you implement a method that begins with watch_ followed by the name of a
 reactive attribute, then the method will be called when the attribute is
 modified. Such methods are known as watch methods.
-
-
-## Guide
 
