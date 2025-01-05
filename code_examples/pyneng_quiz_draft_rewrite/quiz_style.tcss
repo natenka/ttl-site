@@ -1,0 +1,9 @@
+TopicText {   
+    width: 80;
+    text-align: left;
+}
+
+.selected {
+    background: $success-muted;
+    color: $text;
+}
