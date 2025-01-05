@@ -22,7 +22,9 @@ class TopicText(Button):
 
     def select(self) -> None:
         self.add_class("selected")
-        self.label = self.id
+
+    def unselect(self) -> None:
+        self.remove_class("selected")
 
 
 class Topics(VerticalScroll):
@@ -44,6 +46,7 @@ class TermQuiz(App):
     def compose(self) -> ComposeResult:
         yield Header()
         yield Footer()
+        yield Static("Виберіть тему та натисніть Enter", id="intro")
         topics_list = [
             TopicText(f"{topic_id:<4} {text}", id=f"topic_{topic_id}")
             for topic_id, text in enumerate(topics, 1)
@@ -52,10 +55,16 @@ class TermQuiz(App):
 
     def on_key(self, event: events.Key) -> None:
         if event.key.isdecimal():
+            for button in self.query("TopicText"):
+                button.unselect()
             selected_topic_text = self.query_one(f"#topic_{event.key}")
+            # add expected type:
+            # selected_topic_text = self.query_one(f"#topic_{event.key}", TopicText)
             selected_topic_text.select()
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
+        for button in self.query("TopicText"):
+            button.unselect()
         event.button.select()
         # selected_topic_text = self.query_one(f"#{event.button.id}")
         # selected_topic_text.select()
