@@ -242,3 +242,82 @@ CSS class
 Combining the two selectors with a space ``.started #start`` creates a new
 selector that will match the start button only if it is also inside a container
 with a CSS class of "started".
+
+### event hadler, class manipulation
+
+New method
+
+```python
+class Stopwatch(HorizontalGroup):
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        """Event handler called when a button is pressed."""
+        if event.button.id == "start":
+            self.add_class("started")
+        elif event.button.id == "stop":
+            self.remove_class("started")
+```
+
+The on_button_pressed method is an event handler. Event handlers are methods
+called by Textual in response to an event such as a key press, mouse click,
+etc. Event handlers begin with on_ followed by the name of the event they will
+handle. Hence on_button_pressed will handle the button pressed event.
+
+
+When the button event handler adds or removes the "started" CSS class, Textual
+re-applies the CSS and updates the visuals.
+
+### Reactive attributes
+
+To add a reactive attribute, import reactive and create an instance in your
+class scope.
+
+```python
+from textual.reactive import reactive
+
+
+class TimeDisplay(Digits):
+    """A widget to display elapsed time."""
+
+    start_time = reactive(monotonic)
+    time = reactive(0.0)
+
+    def on_mount(self) -> None:
+        """Event handler called when widget is added to the app."""
+        self.set_interval(1 / 60, self.update_time)
+
+    def update_time(self) -> None:
+        """Method to update the time to the current time."""
+        self.time = monotonic() - self.start_time
+
+    def watch_time(self, time: float) -> None:
+        """Called when the time attribute changes."""
+        minutes, seconds = divmod(time, 60)
+        hours, minutes = divmod(minutes, 60)
+        self.update(f"{hours:02,.0f}:{minutes:02.0f}:{seconds:05.2f}")
+```
+
+Two reactive attributes to the TimeDisplay widget:
+* start_time will contain the time the stopwatch was started (in seconds)
+* time will contain the time to be displayed in the Stopwatch widget
+
+Both attributes will be available on self as if you had assigned them in
+``__init__``. If you write to either of these attributes the widget will update
+automatically.
+
+
+The first argument to reactive may be a default value for the attribute or a
+callable that returns a default value.
+
+
+set_interval() - creates a timer which calls self.update_time sixty times a
+second.
+
+#### watch method
+
+If you implement a method that begins with watch_ followed by the name of a
+reactive attribute, then the method will be called when the attribute is
+modified. Such methods are known as watch methods.
+
+
+
