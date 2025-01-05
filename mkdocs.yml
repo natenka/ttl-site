@@ -1,0 +1,146 @@
+site_name: Time To Learn
+site_url: https://pyneng.io/
+# Copyright
+# copyright: Copyright &copy; 2015 - 2023 Nataliya Samoylenko
+
+
+# Repository
+#repo_name: natenka/pyneng.io
+#repo_url: https://github.com/natenka/pyneng.io
+theme:
+  name: material
+  language: uk
+  icon:
+    logo: material/book-open-outline
+  features:
+    - announce.dismiss
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
+    # - content.code.select
+    # - content.tabs.link
+    - content.tooltips
+    # - header.autohide
+    - navigation.tabs
+    # - navigation.tabs.sticky
+    - navigation.tracking
+    - navigation.instant
+    - navigation.path
+    # - navigation.prune
+    - navigation.sections
+    - navigation.footer
+    - navigation.indexes
+    - navigation.top
+    # - navigation.expand
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    # Palette toggle for light mode
+    - media: '(prefers-color-scheme: light)'
+      scheme: default
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: '(prefers-color-scheme: dark)'
+      scheme: slate
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+
+# Plugins
+plugins:
+  - blog
+  - search
+  - git-revision-date-localized:
+      enable_creation_date: true
+#- with-pdf:
+  #- extra-sass
+  #- with-pdf:
+  #    ordered_chapter_level: 0
+  #    output_path: site/pdf/document.pdf
+  #    author: Nataliya Samoylenko
+  #    toc_level: 3
+  #    exclude_pages:
+  #      - blog/
+  #      - reference/
+  #      - course/
+  #    cover_subtitle: Книга, курс та завдання з основ Python
+  #    # render_js: true
+  #    # headless_chrome_path: chromium
+
+# Customization
+extra:
+  social:
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/@pynenguk
+    - icon: fontawesome/brands/github
+      link: https://github.com/natenka
+  analytics:
+    provider: google
+    property: G-3WX9XBK91Y
+
+
+
+# Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:materialx.emoji.twemoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: squidfunk
+      repo: mkdocs-material
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+# Page tree
+nav:
+  - index.md
+    #- keyboard_shortcuts.md
+    #- todo.md
+  - Блог:
+    - blog/index.md
