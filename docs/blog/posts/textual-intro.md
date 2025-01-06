@@ -333,6 +333,8 @@ modified. Such methods are known as watch methods.
 
 ### select, unselect, on_key, on_button_pressed
 
+Це просто потренуватися після туторіал частини.
+
 ```python
 import json
 
@@ -411,7 +413,7 @@ if __name__ == "__main__":
     app.run()
 ```
 
-#### Input widget
+### Input widget
 
 Це щоб не забути про віджет Input, бо він точно буде потрібен для фінальної версії
 ```python
@@ -453,7 +455,7 @@ if __name__ == "__main__":
     app.run()
 ```
 
-#### Сигнал з віджета про вибрану тему, летить до app
+### Сигнал з віджета про вибрану тему, летить до app
 
 Розділ [Events and messages](https://textual.textualize.io/guide/events/),
 приклад з документації, трохи перероблений під quiz.
@@ -520,7 +522,7 @@ if __name__ == "__main__":
 
 
 
-Те саме, тільки видалаю теми через VirticalScroll
+Те саме, тільки видаляю теми через VirticalScroll
 ```python
 class TermQuiz(App):
     CSS_PATH = "quiz_style.tcss"
@@ -543,4 +545,7 @@ class TermQuiz(App):
         new_topic.styles.animate("background", "green", duration=0.1)
 ```
 
-#### Наступним треба спробувати комбінацію buttons + message
+### Наступним треба спробувати
+
+* комбінацію buttons + message
+* почитати про dom, бо щось я його пропустила: https://textual.textualize.io/guide/CSS/
