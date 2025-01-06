@@ -9,6 +9,7 @@ tags:
 
 * [Will McGugan. The Art of the Minimal Reproducible Example](https://label.dev/articles/minimal-reproducible-example/)
 
+<!-- more -->
 
 check:
 
