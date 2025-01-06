@@ -1,7 +1,6 @@
 TopicText {   
     width: 80;
     text-align: left;
-    margin: 1 1;
     content-align: left middle;
 }
 
@@ -17,8 +16,3 @@ TopicText {
     background: $boost;
 }
 
-#questions {
-    padding: 2;
-    width: 100%;
-    background: $boost;
-}
