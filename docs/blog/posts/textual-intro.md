@@ -324,3 +324,223 @@ If you implement a method that begins with watch_ followed by the name of a
 reactive attribute, then the method will be called when the attribute is
 modified. Such methods are known as watch methods.
 
+
+## Guide
+
+Експерименти в процесі читання доків, а саме Guide.
+
+Базовий вибір кнопки/теми. Подобається, бо частина функціоналу автоматична саме через віджет кнопку.
+
+### select, unselect, on_key, on_button_pressed
+
+```python
+import json
+
+from textual.app import App, ComposeResult
+from textual.containers import HorizontalGroup, VerticalScroll
+from textual.reactive import reactive
+from textual.widgets import Button, Footer, Header, Static
+from textual import events
+
+
+def load_topics(questions_file):
+    with open(questions_file) as f:
+        q_dict = json.load(f)
+        return list(q_dict.keys())
+
+
+topics = load_topics("questions.json")
+
+
+class TopicText(Button):
+    #def on_button_pressed(self, event: Button.Pressed) -> None:
+    #    self.select()
+
+    def select(self) -> None:
+        self.add_class("selected")
+
+    def unselect(self) -> None:
+        self.remove_class("selected")
+
+
+class Topics(VerticalScroll):
+    pass
+
+
+class TermQuiz(App):
+    CSS_PATH = "quiz_style.tcss"
+
+    #def compose(self) -> ComposeResult:
+    #    yield Header()
+    #    yield Footer()
+    #    topics_list = [
+    #        TopicText(f"{topic_id:<4} {text}", id=f"topic_{topic_id}")
+    #        for topic_id, text in enumerate(topics, 1)
+    #    ]
+    #    yield Topics(*topics_list, id="topics")
+
+    def compose(self) -> ComposeResult:
+        yield Header()
+        yield Footer()
+        yield Static("Виберіть тему та натисніть Enter", id="intro")
+        topics_list = [
+            TopicText(f"{topic_id:<4} {text}", id=f"topic_{topic_id}")
+            for topic_id, text in enumerate(topics, 1)
+        ]
+        yield from topics_list
+
+    def on_key(self, event: events.Key) -> None:
+        if event.key.isdecimal():
+            for button in self.query("TopicText"):
+                button.unselect()
+            selected_topic_text = self.query_one(f"#topic_{event.key}")
+            # add expected type:
+            # selected_topic_text = self.query_one(f"#topic_{event.key}", TopicText)
+            selected_topic_text.select()
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        for button in self.query("TopicText"):
+            button.unselect()
+        event.button.select()
+        # selected_topic_text = self.query_one(f"#{event.button.id}")
+        # selected_topic_text.select()
+
+
+if __name__ == "__main__":
+    app = TermQuiz()
+    app.run()
+```
+
+#### Input widget
+
+Це щоб не забути про віджет Input, бо він точно буде потрібен для фінальної версії
+```python
+import json
+
+from textual.app import App, ComposeResult
+from textual.containers import HorizontalGroup, VerticalScroll
+from textual.reactive import reactive
+from textual.widgets import Button, Footer, Header, Input, Static
+from textual import events
+
+
+def load_topics(questions_file):
+    with open(questions_file) as f:
+        q_dict = json.load(f)
+        return list(q_dict.keys())
+
+
+topics = load_topics("questions.json")
+
+
+class TermQuiz(App):
+    CSS_PATH = "quiz_style.tcss"
+
+    def compose(self) -> ComposeResult:
+        yield Header()
+        yield Footer()
+        yield Static("Введіть номер теми та натисніть Enter", id="intro")
+        yield Input()
+        topics_list = [
+            f"{topic_id:<4} {text}"
+            for topic_id, text in enumerate(topics, 1)
+        ]
+        yield Static("\n".join(topics_list), id="questions")
+
+
+if __name__ == "__main__":
+    app = TermQuiz()
+    app.run()
+```
+
+#### Сигнал з віджета про вибрану тему, летить до app
+
+Розділ [Events and messages](https://textual.textualize.io/guide/events/),
+приклад з документації, трохи перероблений під quiz.
+
+```python
+import json
+
+from textual.app import App, ComposeResult
+from textual.containers import HorizontalGroup, VerticalScroll
+from textual.message import Message
+from textual.reactive import reactive
+from textual.widgets import Button, Footer, Header, Static
+from textual import events
+
+
+def load_topics(questions_file):
+    with open(questions_file) as f:
+        q_dict = json.load(f)
+        return q_dict
+
+
+class TopicText(Static):
+    class Selected(Message):
+        def __init__(self, topic: str) -> None:
+            self.topic = topic
+            super().__init__()
+
+    def __init__(self, topic: str) -> None:
+        self.topic = topic
+        super().__init__()
+
+    def on_click(self) -> None:
+        self.post_message(self.Selected(self.topic))
+
+    def render(self) -> str:
+        return str(self.topic)
+
+
+class TermQuiz(App):
+    CSS_PATH = "quiz_style.tcss"
+    TOPICS = load_topics("questions.json")
+
+    def compose(self) -> ComposeResult:
+        yield Header()
+        yield Footer()
+        yield Static("Виберіть тему та натисніть Enter", id="intro")
+        topics_list = [TopicText(topic) for topic in self.TOPICS]
+        yield from topics_list
+
+    def on_topic_text_selected(self, message: TopicText.Selected) -> None:
+        selected_topic = message.topic
+        topics = self.query("TopicText")
+        for top in topics:
+            if top.topic != selected_topic:
+                top.remove()
+        for top in topics:
+            top.styles.animate("background", "green", duration=0.1)
+
+
+if __name__ == "__main__":
+    app = TermQuiz()
+    app.run()
+```
+
+
+
+Те саме, тільки видалаю теми через VirticalScroll
+```python
+class TermQuiz(App):
+    CSS_PATH = "quiz_style.tcss"
+    TOPICS = load_topics("questions.json")
+
+    def compose(self) -> ComposeResult:
+        yield Header()
+        yield Footer()
+        yield Static("Виберіть тему та натисніть Enter", id="intro")
+        topics_list = [TopicText(topic) for topic in self.TOPICS]
+        yield VerticalScroll(*topics_list, id="topics")
+
+    def on_topic_text_selected(self, message: TopicText.Selected) -> None:
+        selected_topic = message.topic
+        topics = self.query_one("#topics").remove()
+
+        new_topic = TopicText(selected_topic)
+        header = self.query_one("#intro")
+        header.mount(new_topic)
+        new_topic.styles.animate("background", "green", duration=0.1)
+```
+
+#### Наступним треба спробувати комбінацію buttons + message
