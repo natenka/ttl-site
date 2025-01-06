@@ -10,6 +10,10 @@ tags:
 
 # Нотатка по Textual
 
+Це запис для себе, поки я читаю доки Textual 1.0.0 та розбираюся з ним.
+Приклади з кодом щоб запам'ятати якісь моменти чи мої експерименти, після
+прочитання документації, не варто використовувати їх.
+
 ## Quiz ideas
 
 Цікаво спробувати зробити адмінку для створення/додавання запитань:
@@ -27,6 +31,10 @@ tags:
 * вибірку по номеру теми, під час введення номеру у widget Input (тут ще питання тільки по номеру теми чи ще й по номеру розділа)
 * вибірку по назві теми, під час введення номеру у widget Input
 * можна все об'єднати в остаточній версії
+
+Потенційно корисний приклад для "живого" запиту теми, на прикладі словника:
+
+* https://github.com/Textualize/textual/blob/main/examples/dictionary.py
 
 ## TODO
 
@@ -282,6 +290,64 @@ handle. Hence on_button_pressed will handle the button pressed event.
 
 When the button event handler adds or removes the "started" CSS class, Textual
 re-applies the CSS and updates the visuals.
+
+
+#### message handlers
+
+https://textual.textualize.io/guide/events/#message-handlers
+
+#### on decorator
+
+
+```python
+@on(Button.Pressed)
+def handle_button_pressed(self):
+    ...
+
+def on_button_pressed(self):
+    ...
+```
+
+The main advantage of the decorator approach over the naming convention is that
+you can specify which widget(s) you want to handle messages for.
+
+```python
+from textual import on
+from textual.app import App, ComposeResult
+from textual.widgets import Button
+
+
+class OnDecoratorApp(App):
+    CSS_PATH = "on_decorator.tcss"
+
+    def compose(self) -> ComposeResult:
+        """Three buttons."""
+        yield Button("Bell", id="bell")
+        yield Button("Toggle dark", classes="toggle dark")
+        yield Button("Quit", id="quit")
+
+    @on(Button.Pressed, "#bell")  
+    def play_bell(self):
+        """Called when the bell button is pressed."""
+        self.bell()
+
+    @on(Button.Pressed, ".toggle.dark")  
+    def toggle_dark(self):
+        """Called when the 'toggle dark' button is pressed."""
+        self.theme = (
+            "textual-dark" if self.theme == "textual-light" else "textual-light"
+        )
+
+    @on(Button.Pressed, "#quit")  
+    def quit(self):
+        """Called when the quit button is pressed."""
+        self.exit()
+
+
+if __name__ == "__main__":
+    app = OnDecoratorApp()
+    app.run()
+```
 
 ### Reactive attributes
 
@@ -562,7 +628,7 @@ class TermQuiz(App):
 
 Працює не тільки через клік мишею, а й через вибір кнопки tab + enter
 
-```
+```python
 import json
 
 from textual.app import App, ComposeResult
