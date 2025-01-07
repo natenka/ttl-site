@@ -1,7 +1,7 @@
 site_name: Time To Learn
-site_url: https://pyneng.io/
+site_url: https://ttl-pages.netlify.app/
 # Copyright
-# copyright: Copyright &copy; 2015 - 2023 Nataliya Samoylenko
+# copyright: Copyright &copy; 2024 - 2025 Nata Samoilenko
 
 
 # Repository
@@ -46,7 +46,7 @@ theme:
     # Palette toggle for light mode
     - media: '(prefers-color-scheme: light)'
       scheme: default
-      primary: teal
+      primary: green
       accent: amber
       toggle:
         icon: material/weather-night
@@ -54,7 +54,7 @@ theme:
     # Palette toggle for dark mode
     - media: '(prefers-color-scheme: dark)'
       scheme: slate
-      primary: teal
+      primary: green
       accent: amber
       toggle:
         icon: material/weather-sunny
@@ -89,9 +89,6 @@ extra:
       link: https://www.youtube.com/@pynenguk
     - icon: fontawesome/brands/github
       link: https://github.com/natenka
-  analytics:
-    provider: google
-    property: G-3WX9XBK91Y
 
 
 
