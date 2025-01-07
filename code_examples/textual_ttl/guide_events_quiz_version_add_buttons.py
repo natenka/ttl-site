@@ -47,8 +47,9 @@ class TermQuiz(App):
         topics = self.query_one("#topics").remove()
 
         new_topic = TopicText(selected_topic)
-        header = self.query_one("#intro")
-        header.mount(new_topic)
+        # header = self.query_one("#intro")
+        # header.mount(new_topic)
+        self.mount(new_topic)
         new_topic.styles.animate("background", "darkgreen", duration=0.1)
 
 
