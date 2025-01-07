@@ -14,6 +14,7 @@ for fun:
 * textual
 * переробити утиліту pyneng-quiz на нову версію textual 1.0.0
 
+<!-- more -->
 
 ### textual + pyneng-cli
 
