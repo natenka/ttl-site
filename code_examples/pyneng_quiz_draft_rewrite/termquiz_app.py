@@ -34,24 +34,16 @@ class Topics(VerticalScroll):
 class TermQuiz(App):
     CSS_PATH = "quiz_style.tcss"
 
-    #def compose(self) -> ComposeResult:
-    #    yield Header()
-    #    yield Footer()
-    #    topics_list = [
-    #        TopicText(f"{topic_id:<4} {text}", id=f"topic_{topic_id}")
-    #        for topic_id, text in enumerate(topics, 1)
-    #    ]
-    #    yield Topics(*topics_list, id="topics")
-
     def compose(self) -> ComposeResult:
         yield Header()
         yield Footer()
         yield Static("Виберіть тему та натисніть Enter", id="intro")
         topics_list = [
-            TopicText(f"{topic_id:<4} {text}", id=f"topic_{topic_id}")
+            TopicText(f"{topic_id:<4} {text}")
             for topic_id, text in enumerate(topics, 1)
         ]
-        yield from topics_list
+        # yield from topics_list
+        yield Topics(*topics_list, id="topics")
 
     def on_key(self, event: events.Key) -> None:
         if event.key.isdecimal():
@@ -59,15 +51,13 @@ class TermQuiz(App):
                 button.unselect()
             selected_topic_text = self.query_one(f"#topic_{event.key}")
             # add expected type:
-            # selected_topic_text = self.query_one(f"#topic_{event.key}", TopicText)
+            # self.query_one(f"#topic_{event.key}", TopicText)
             selected_topic_text.select()
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         for button in self.query("TopicText"):
             button.unselect()
         event.button.select()
-        # selected_topic_text = self.query_one(f"#{event.button.id}")
-        # selected_topic_text.select()
 
 
 if __name__ == "__main__":

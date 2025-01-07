@@ -4,6 +4,14 @@ TopicText {
     border: blank;
 }
 
+TopicText:hover {   
+    border: wide $secondary;
+}
+
+TopicText:focus {   
+    border: wide $accent;
+}
+
 
 .selected {
     background: $success-muted;

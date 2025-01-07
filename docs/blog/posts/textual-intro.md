@@ -12,7 +12,9 @@ tags:
 
 Це запис для себе, поки я читаю доки Textual 1.0.0 та розбираюся з ним.
 Приклади з кодом щоб запам'ятати якісь моменти чи мої експерименти, після
-прочитання документації, не варто використовувати їх.
+прочитання документації. Не варто використовувати їх.
+
+<!-- more -->
 
 ## Quiz ideas
 
@@ -44,7 +46,6 @@ Phase 1
 * asyncio review (my lectures)
 * rewrite pyneng tool
 
-<!-- more -->
 
 Phase 2
 
@@ -688,6 +689,129 @@ if __name__ == "__main__":
     app.run()
 ```
 
+### Input
+
+* Widget RichLog!
+
+#### Key event
+
+```python
+    def on_key(self, event: events.Key) -> None:                                                                                                    
+        if event.key.isdecimal():
+```
+
+from key01.py example
+```python
+Key(key='t', character='t', name='t', is_printable=True)
+Key(key='escape', character='\x1b', name='escape', is_printable=False, aliases=['escape', 'ctrl+left_square_brace'])
+Key(key='enter', character='\r', name='enter', is_printable=False, aliases=['enter', 'ctrl+m'])
+Key(key='up', character=None, name='up', is_printable=False)
+Key(key='ctrl+e', character='\x05', name='ctrl_e', is_printable=False)
+Key(key='W', character='W', name='upper_w', is_printable=True)
+Key(key='enter', character='\r', name='enter', is_printable=False, aliases=['enter', 'ctrl+m'])
+Key(key='ctrl+w', character='\x17', name='ctrl_w', is_printable=False)
+Key(key='shift+up', character=None, name='shift_up', is_printable=False)
+```
+
+* event.key - string
+
+#### key methods
+
+```python
+    def key_space(self) -> None:
+        self.bell()
+```
+
+Consider key methods to be a convenience for experimenting with Textual
+features. In nearly all cases, key bindings and actions are preferable.
+
+#### input focus
+
+Only a single widget may receive key events at a time. The widget which is
+actively receiving key events is said to have input focus.
+
+the ``:focus`` CSS pseudo-selector can be used to apply a style to the focused widget.
+
+You can move focus by pressing the ``Tab`` key to focus the next widget. Pressing
+``Shift+Tab`` moves the focus in the opposite direction.
+
+Controlling focus:
+
+Textual will handle keyboard focus automatically, but you can tell Textual to
+focus a widget by calling the widget's focus() method. By default, Textual will
+focus the first focusable widget when the app starts.
+
+When a widget receives focus, it is sent a Focus event. When a widget loses focus it is sent a Blur event.
+
+
+```css
+Screen {
+    layout: grid;
+    grid-size: 2 2;
+    grid-columns: 1fr;
+}
+
+KeyLogger {
+    border: blank;
+}
+
+KeyLogger:hover {
+    border: wide $secondary;
+}
+
+KeyLogger:focus {
+    border: wide $accent;
+}
+```
+
+### Key bindings
+
+To create bindings, add a BINDINGS class variable to your app or widget. This
+should be a list of tuples of three strings:
+* The first value is the key,
+* the second is the action,
+* the third value is a short human readable description.
+
+```python
+from textual.app import App, ComposeResult
+from textual.binding import Binding
+from textual.color import Color
+from textual.widgets import Footer, Static
+
+
+class Bar(Static):
+    pass
+
+
+class BindingApp(App):
+    CSS_PATH = "binding01.tcss"
+    BINDINGS = [
+        ("r", "add_bar('red')", "Add Red"),
+        ("g", "add_bar('green')", "Add Green"),
+		# textual.textualize.io/api/binding/#textual.binding.Binding
+		# dataclass
+        Binding("b", "add_bar('blue')", "Add Blue"),
+		# priority means bindings will be checked prior to the
+		# bindings of the focused widget
+		Binding("ctrl+q", "quit", "Quit", show=False, priority=True),
+    ]
+
+    def compose(self) -> ComposeResult:
+        yield Footer()
+
+    def action_add_bar(self, color: str) -> None:
+        bar = Bar(color)
+        bar.styles.background = Color.parse(color).with_alpha(0.5)
+        self.mount(bar)
+		# move with added widgets to the end of scroll
+        self.call_after_refresh(self.screen.scroll_end, animate=False)
+
+
+if __name__ == "__main__":
+    app = BindingApp()
+    app.run()
+```
+
 ### Наступним треба спробувати
 
-* почитати про dom, бо щось я його пропустила: https://textual.textualize.io/guide/CSS/
+* почитати про dom в textual, бо щось я його пропустила: https://textual.textualize.io/guide/CSS/
