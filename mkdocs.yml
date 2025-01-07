@@ -141,3 +141,9 @@ nav:
     #- todo.md
   - Нотатки:
     - blog/index.md
+  #- Нотатки:
+  #  - book/index.md
+  #  - Підготовка:
+  #    - 1. Підготовка до роботи:
+  #      - book/01-intro/index.md
+  #      - book/01-intro/work_env.md
