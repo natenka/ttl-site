@@ -46,27 +46,28 @@ class TermQuiz(App):
         yield VerticalScroll(*topics_list, id="topics")
 
     def remount_topics(self, topics):
-        self.query_one("#topics").remove()
-
         topics_list = [TopicText(topic) for topic in topics]
-        # self.mount(VerticalScroll(*topics_list, id="topics"))
-        self.mount(VerticalScroll(*topics_list))
 
-    def highlight_selected_topic(self, selected_topic: str):
-        # self.query_one("#topics").remove()
-        # new_topic = TopicText(selected_topic)
-        # self.mount(new_topic)
+        topics_widget = self.query_one("#topics")
+        topics_widget.remove_children()
+        topics_widget.mount_all(topics_list)
 
-        self.remount_topics([selected_topic])
-        # new_topic.styles.animate("background", "green", duration=0.1)
+    def highlight_selected_topics(self, selected_topics: str):
+        self.remount_topics(selected_topics)
 
     def on_topic_text_selected(self, message: TopicText.Selected) -> None:
-        self.highlight_selected_topic(message.topic)
+        self.highlight_selected_topics([message.topic])
 
     def on_input_submitted(self, event: Input.Submitted) -> None:
-        search_topic = event.value
-        matched_topics = ""
-        # self.query_one(Input).value = ""
+        search_topic = str(event.value).lower()
+        matched_topics = []
+        for topic in self.TOPICS:
+            if re.search(search_topic, topic.lower()):
+                matched_topics.append(topic)
+
+        if matched_topics:
+            self.remount_topics(matched_topics)
+        self.query_one(Input).value = ""
 
 
 if __name__ == "__main__":
