@@ -38,16 +38,23 @@ tags:
 
 * https://github.com/Textualize/textual/blob/main/examples/dictionary.py
 
+Ще хороша штука, яка можна взяти за основу
+
+* https://github.com/willmcgugan/terminal-tree
+* https://github.com/darrenburns/posting
+
 ## TODO
 
-Phase 1
 
 * read textual docs (write notes)
 * asyncio review (my lectures)
 * rewrite pyneng tool
 
+textual ideas:
 
-Phase 2
+* jinja2, textfsm + textual
+
+
 
 * click review, what's new (my lecture)
 * play with [trogon](https://github.com/Textualize/trogon)
