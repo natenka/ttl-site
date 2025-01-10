@@ -9,14 +9,8 @@ TopicText {
     color: $text;
 }
 
-#intro {
-    dock: top;
-    padding: 1;
-    width: 100%;
-    background: $boost;
-}
-
 Input {
     dock: top;
     margin-top: 1;
 }
+
