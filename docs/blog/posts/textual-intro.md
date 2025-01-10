@@ -819,6 +819,151 @@ if __name__ == "__main__":
     app.run()
 ```
 
+
+
 ### Наступним треба спробувати
 
 * почитати про dom в textual, бо щось я його пропустила: https://textual.textualize.io/guide/CSS/
+
+
+### Actions
+
+#### Dynamic actions
+
+check_action is called with the name of the action and any parameters, prior to
+running actions or refreshing the footer. It should return one of the following
+values:
+
+* True to show the key and run the action as normal.
+* False to hide the key and prevent the action running.
+* None to disable the key (show dimmed), and prevent the action running.
+
+```python
+from textual.app import App, ComposeResult
+from textual.containers import HorizontalScroll
+from textual.reactive import reactive
+from textual.widgets import Footer, Placeholder
+
+PAGES_COUNT = 5
+
+
+class PagesApp(App):
+    BINDINGS = [
+        ("n", "next", "Next"),
+        ("p", "previous", "Previous"),
+    ]
+
+    CSS_PATH = "actions06.tcss"
+
+    page_no = reactive(0, bindings=True)
+
+    def compose(self) -> ComposeResult:
+        with HorizontalScroll(id="page-container"):
+            for page_no in range(PAGES_COUNT):
+                yield Placeholder(f"Page {page_no}", id=f"page-{page_no}")
+        yield Footer()
+
+    def action_next(self) -> None:
+        self.page_no += 1
+        # self.refresh_bindings()
+        self.query_one(f"#page-{self.page_no}").scroll_visible()
+
+    def action_previous(self) -> None:
+        self.page_no -= 1
+        # self.refresh_bindings()
+        self.query_one(f"#page-{self.page_no}").scroll_visible()
+
+    def check_action(
+        self, action: str, parameters: tuple[object, ...]
+    ) -> bool | None:
+        if action == "next" and self.page_no == PAGES_COUNT - 1:
+            return None # binding inactive
+        if action == "previous" and self.page_no == 0:
+            return False # binding gone
+        return True
+
+
+if __name__ == "__main__":
+    app = PagesApp()
+    app.run()
+```
+
+## quiz iterations
+
+```python
+import json
+import re
+
+from textual.app import App, ComposeResult
+from textual.containers import HorizontalGroup, VerticalScroll
+from textual.message import Message
+from textual.reactive import reactive
+from textual.widgets import Button, Footer, Header, Input, Static
+from textual import events
+
+from rich import inspect
+
+
+def load_topics(questions_file):
+    with open(questions_file) as f:
+        q_dict = json.load(f)
+        return q_dict
+
+
+class TopicText(Static):
+    class Selected(Message):
+        def __init__(self, topic: str) -> None:
+            self.topic = topic
+            super().__init__()
+
+    def __init__(self, topic: str) -> None:
+        self.topic = topic
+        super().__init__()
+
+    def on_click(self) -> None:
+        self.post_message(self.Selected(self.topic))
+
+    def render(self) -> str:
+        return str(self.topic)
+
+
+class TermQuiz(App):
+    CSS_PATH = "quiz_style_02.tcss"
+    TOPICS = load_topics("questions.json")
+
+    def compose(self) -> ComposeResult:
+        yield Header()
+        yield Footer()
+        yield Input(placeholder="Виберіть тему", id="intro")
+        topics_list = [TopicText(topic) for topic in self.TOPICS]
+        yield VerticalScroll(*topics_list, id="topics")
+
+    def remount_topics(self, topics):
+        topics_list = [TopicText(topic) for topic in topics]
+
+        topics_widget = self.query_one("#topics")
+        topics_widget.remove_children()
+        topics_widget.mount_all(topics_list)
+
+    def highlight_selected_topics(self, selected_topics: str):
+        self.remount_topics(selected_topics)
+
+    def on_topic_text_selected(self, message: TopicText.Selected) -> None:
+        self.highlight_selected_topics([message.topic])
+
+    def on_input_submitted(self, event: Input.Submitted) -> None:
+        search_topic = str(event.value).lower()
+        matched_topics = []
+        for topic in self.TOPICS:
+            if re.search(search_topic, topic.lower()):
+                matched_topics.append(topic)
+
+        if matched_topics:
+            self.remount_topics(matched_topics)
+        self.query_one(Input).value = ""
+
+
+if __name__ == "__main__":
+    app = TermQuiz()
+    app.run()
+```
