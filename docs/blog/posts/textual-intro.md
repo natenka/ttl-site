@@ -967,3 +967,18 @@ if __name__ == "__main__":
     app = TermQuiz()
     app.run()
 ```
+
+### Widgets
+
+Textual will display whatever is returned from render in the content area of your widget.
+
+Widgets may be combined to create new widgets with additional features. Such
+widgets are known as compound widgets. The stopwatch in the tutorial is an
+example of a compound widget.
+
+A compound widget can be used like any other widget. The only thing that
+differs is that when you build a compound widget, you write a compose() method
+which yields child widgets, rather than implement a render or render_line
+method.
+
+## Latest [widgets](https://textual.textualize.io/guide/widgets/#coordinating-widgets)
