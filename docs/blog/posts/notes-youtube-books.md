@@ -10,6 +10,8 @@ tags:
 Все що не pycon і не autocon, буду збирати тут, щоб не загубилися посилання на хороші
 відео/книги.
 
+<!-- more -->
+
 ## AI/LLM related talks
 
 ### [Andrej Karpathy: Software Is Changing (Again)](https://www.youtube.com/watch?v=LCEmiRjPEtQ)
