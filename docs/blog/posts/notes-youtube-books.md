@@ -7,8 +7,6 @@ tags:
   - links
 ---
 
-<iframe src="https://base.monobank.ua/widget.html?type=qr&shortName=4DFyY5dZ6D5WEd&creatorPageTab=subscriptions" width="600" height="600" frameborder="0"></iframe>
-
 Все що не pycon і не autocon, буду збирати тут, щоб не загубилися посилання на хороші
 відео/книги.
 
