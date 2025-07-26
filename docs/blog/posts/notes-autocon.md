@@ -61,3 +61,25 @@ Python/Ansible та автоматизація рутини.
 Це все дуже спрощено, але схожого багато.
 
 ## [Mini Track: The State of Network Automation](https://youtu.be/o41VuaI3_R4?si=cEI0uCWSZy4TlhvX)
+
+Думки схожі з попереднім відео:
+
+* є що взяти в девелоперів і в devops: CI/CD, source of truth, ... 
+
+## [Applying Platform Engineering Principles to On-Premises Network Infrastructure - Kaon Thana](https://youtu.be/nlDrSzzzybE?si=I-ShuOvYbnDktoa3)
+
+Більш наближене до життя мережевих інженерів в невеликих/середніх компаніях.
+
+* Є SoT, але там не вся інформація.
+* Є перевірка відповідності конфігу до "golden config", але все ще можливі
+  зміни через CLI
+* зробили staging area з containerlab, де створюється частка, на якій будуть
+  робитися зміни і відпрацьовуються перед deployment в production
+* Ansible + Ansible Tower, де можливо, але також є Python скрипти для задач де
+  Ansible не підходить
+
+Links:
+
+* [Github Kaon Thana](https://github.com/kaon1/golden-config-engine/tree/main)
+* Blog post [Golden Configuration Deployment with Ansible and Netbox](https://kaonbytes.com/p/golden-configuration-deployment-with-ansible-and-netbox/)
+

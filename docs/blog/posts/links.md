@@ -44,3 +44,10 @@ youtube checklist
 * [How to Make Engaging Programming Videos](https://realpython.com/how-to-make-programming-videos/#edit-and-review-your-programming-video)
 * https://www.freecodecamp.org/news/how-to-start-a-software-youtube-channel/
 * https://cs50.harvard.edu/x/
+
+
+Check:
+
+* https://github.com/devopshobbies/netops-roadmap
+* https://github.com/netboxlabs/netbox-learning
+* https://www.itential.com/resource/guide/network-automation-orchestration-maturity-model/
