@@ -50,11 +50,11 @@ Python/Ansible та автоматизація рутини.
 ## [AutoCon 0 Day One Keynote: John Willis](https://www.youtube.com/watch?v=S2atmZlASAs&list=PLP6VWb4PEbEo4i47JpOykMCM-qt2SpO9r&index=4)
 
 Багато корисних ідей і додаткових матеріалів.
-Варто перечитати:
+Варто перечитати/прочитати:
 
 * The Phoenix Project
 * Effective DevOps
-* Здається, не читала The DevOps Handbook, 2nd Edition
+* The DevOps Handbook, 2nd Edition
 
 І загальна думка "це ж було вже" і, що так само, як колись була фантастичною думка
 про 10 deployments в день, зараз може здаватися, що автоматизація неможлива.
