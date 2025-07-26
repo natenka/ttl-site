@@ -83,3 +83,7 @@ Links:
 * [Github Kaon Thana](https://github.com/kaon1/golden-config-engine/tree/main)
 * Blog post [Golden Configuration Deployment with Ansible and Netbox](https://kaonbytes.com/p/golden-configuration-deployment-with-ansible-and-netbox/)
 
+## [Mini Track: Challenges to Network Automation Adoption](https://youtu.be/epGa0tMDfrQ?si=t546v7_HnuJFbJAa)
+
+
+
