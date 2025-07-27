@@ -9,6 +9,18 @@ tags:
 
 # TODO
 
+## youtube task solutions
+
+* task answer 1, 2, 3 (only course topics)
+* task answer with arbitrary topics used
+* after functions: add type annotation version
+* docstring
+
+
+## pytest series
+
+* write test for basic pyneng functions (chapters 9 - ...)
+
 ## To read
 
 * Creating TUI Applications with Textual and Python
@@ -36,7 +48,8 @@ example:
 * netmiko + textual (load devices, type command)
 * netmiko tools
 
-
+Можна використати LLM для основи docstring та опису, бо постійно руки не
+доходили їх написати.
 
 ## for fun:
 
