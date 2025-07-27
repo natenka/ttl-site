@@ -1,6 +1,6 @@
 ---
 # draft: true 
-date: 2025-01-04
+date: 2025-07-27
 categories:
   - todo
 tags:
@@ -9,7 +9,36 @@ tags:
 
 # TODO
 
-for fun:
+## To read
+
+* Creating TUI Applications with Textual and Python
+* Network Programmability and Automation: Skills for the Next-Generation Network Engineer 2nd Edition
+* Cisco pyATS ― Network Test and Automation Solution: Data-driven and reusable testing for modern networks (Networking Technology)
+
+Maybe & rereads
+
+* The Phoenix Project: A Novel About IT, DevOps, and Helping Your Business Win
+* The DevOps Handbook, 2nd Edition
+
+## ideas
+
+Думаю повернутися до ідеї [pyneng-examples](https://github.com/natenka/pyneng-examples).
+
+Як ідея додати залежності і наступне, щоб можна було автоматично зробити з
+цього граф і за певною темою отримувати можливі шляхи і розгалудження теми.
+
+Також це можна використовувати як добірку прикладів для практики читання коду.
+
+example:
+
+* netmiko
+* netmiko + cli (argparse, click, typer)
+* netmiko + textual (load devices, type command)
+* netmiko tools
+
+
+
+## for fun:
 
 * textual
 * переробити утиліту pyneng-quiz на нову версію textual 1.0.0
