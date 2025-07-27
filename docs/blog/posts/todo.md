@@ -9,6 +9,8 @@ tags:
 
 # TODO
 
+<!-- more -->
+
 ## youtube task solutions
 
 * task answer 1, 2, 3 (only course topics)
@@ -56,7 +58,6 @@ example:
 * textual
 * переробити утиліту pyneng-quiz на нову версію textual 1.0.0
 
-<!-- more -->
 
 ### textual + pyneng-cli
 
