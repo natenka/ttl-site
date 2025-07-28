@@ -7,10 +7,28 @@ tags:
   - links
 ---
 
+# Подкасти, youtube, книги
+
 Все що не pycon і не autocon, буду збирати тут, щоб не загубилися посилання на хороші
-відео/книги.
+подкасти/відео/книги.
 
 <!-- more -->
+
+## Podcasts
+
+Загалом, багато хороших подкастів і зараз багато слухаю, але всі випуски точно не буду
+писати, бо це багато. Виписую, які сподобалися.
+
+Сподобалися по конкретних темах
+
+* Хороший подкаст. Дає і розуміння, що таке CI/CD, якщо ви з цим ніколи не
+  стикалися і орієнтую в тому чи потрібно це вам. Плюс взагалі багато корисної
+  і структурованої інформації: [HN769: CI/CD Pipelines and Network Automation](https://packetpushers.net/podcasts/heavy-networking/hn769-ci-cd-pipelines-and-network-automation/)
+
+
+Просто хороші випуски:
+
+* [Stories from Python History](https://talkpython.fm/episodes/show/513/stories-from-python-history) - приємний і веселий подкаст з історіями про Python community
 
 ## AI/LLM related talks
 
