@@ -11,6 +11,22 @@ tags:
 
 <!-- more -->
 
+## pyneng
+
+PDF:
+
+* [quarto](https://quarto.org/docs/output-formats/pdf-basics.html)
+
+### pyneng
+
+* зробити завдання базового курсу, записати відео (згадати завдання, виправити помилки)
+* те саме можна і з advpyneng
+
+### переклад
+
+* завдання з advpyneng, заразом вичитати
+
+
 ## To read/watch/listen
 
 Tests
@@ -29,6 +45,17 @@ Random links
 * https://pythonpeople.fm/episodes/pamela-fox
 * [An introduction to Python for linguists](https://v4py.github.io/intro.html)
 * [Network Automagic 004 - Autocon 3 hallway track](https://www.youtube.com/watch?v=gVKPpbiAh50)
+
+To read
+
+* Creating TUI Applications with Textual and Python
+* Network Programmability and Automation: Skills for the Next-Generation Network Engineer 2nd Edition
+* Cisco pyATS ― Network Test and Automation Solution: Data-driven and reusable testing for modern networks (Networking Technology)
+
+Maybe & rereads
+
+* The Phoenix Project: A Novel About IT, DevOps, and Helping Your Business Win
+* The DevOps Handbook, 2nd Edition
 
 ## Update/add
 
@@ -62,16 +89,6 @@ Random links
 
 * write test for basic pyneng functions (chapters 9 - ...)
 
-## To read
-
-* Creating TUI Applications with Textual and Python
-* Network Programmability and Automation: Skills for the Next-Generation Network Engineer 2nd Edition
-* Cisco pyATS ― Network Test and Automation Solution: Data-driven and reusable testing for modern networks (Networking Technology)
-
-Maybe & rereads
-
-* The Phoenix Project: A Novel About IT, DevOps, and Helping Your Business Win
-* The DevOps Handbook, 2nd Edition
 
 ## ideas
 
@@ -131,13 +148,4 @@ Usage: pyneng [OPTIONS] [TASKS]
 * tmux
 * asyncio
 * rich
-
-## pyneng
-
-* зробити завдання базового курсу, записати відео (згадати завдання, виправити помилки)
-* те саме можна і з advpyneng
-
-## переклад
-
-* завдання з advpyneng, заразом вичитати
 
