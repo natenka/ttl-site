@@ -21,6 +21,7 @@ from textual.widgets import (
     TabbedContent,
     TextArea,
     Tree,
+    Static
 )
 from textual.widgets._masked_input import MaskedInput
 from textual.widgets._toggle_button import ToggleButton
@@ -91,6 +92,7 @@ class ChangingThemeApp(App[None]):
         ),
     ]
     current_topic: reactive[str] = reactive("")
+    topics = load_topics("questions.json")
 
     def action_toggle_dark(self) -> None:
         self.theme = "textual-light" if self.theme == "textual-dark" else "textual-dark"
@@ -105,12 +107,7 @@ class ChangingThemeApp(App[None]):
         yield Header(show_clock=True)
         yield TopicList(id="topic-list")
         with VerticalScroll(id="widget-list", can_focus=False) as container:
-            yield TextArea(self.current_topic)
-            yield ListView(
-                ListItem(Label(self.current_topic)),
-                ListItem(Label("Two")),
-                ListItem(Label("Three")),
-            )
+            yield Static(id="code", expand=True)
         yield Footer()
 
     def on_mount(self) -> None:
@@ -119,8 +116,10 @@ class ChangingThemeApp(App[None]):
     @on(TopicList.OptionHighlighted, selector="#topic-list")
     def _change_theme(self, event: TopicList.OptionHighlighted) -> None:
         self.current_topic = event.option.id
-        self.app.theme = "textual-dark"
-        # self.query_one(ListView).
+        # self.app.theme = "textual-dark"
+        code_view = self.query_one("#code", Static)
+        # code_view.update(self.topics[self.current_topic])
+        code_view.update(str(self.topics[self.current_topic]))
 
 
 app = ChangingThemeApp()
