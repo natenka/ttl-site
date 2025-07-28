@@ -11,6 +11,30 @@ tags:
 
 <!-- more -->
 
+## To read/watch/listen
+
+Tests
+
+* [Autocon 2. Step 0: Test the Network! - Danny Wade](https://www.youtube.com/watch?v=3eKNLRVMtIg)
+
+NUTS (Network Unit Testing System):
+
+* https://github.com/network-unit-testing-system/nuts
+* https://netcraftsmen.com/going-nuts-for-network-testing/
+* https://networkautomagic.net/podcast/na003/ - багато корисних посилань
+* [SwiNOG#39 | INPG Stack: An automated way of maintaining and testing a network | Marco Martinez| OST](https://youtu.be/ZVl0GnYMUEo?si=pShkgf-0vFXLUgQj)
+
+Random links
+
+* https://pythonpeople.fm/episodes/pamela-fox
+* [An introduction to Python for linguists](https://v4py.github.io/intro.html)
+* [Network Automagic 004 - Autocon 3 hallway track](https://www.youtube.com/watch?v=gVKPpbiAh50)
+
+## Update/add
+
+* [uv](https://docs.astral.sh/uv/) - на заміну venv, install Python
+* [ruff](https://github.com/astral-sh/ruff) - можливо зарано?
+
 ## What's next
 
 Думаю між Ansible, Nornir і завершити базовий курс.
