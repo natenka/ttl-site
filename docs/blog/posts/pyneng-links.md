@@ -16,3 +16,7 @@ tags:
 Lists of network automation resources/tools:
 
 * [Network Automation LANDSCAPE](https://steinzi.com/network-automation-landscape/)
+
+Ansible:
+
+* [Awesome Ansible List](https://github.com/ansible-community/awesome-ansible)
