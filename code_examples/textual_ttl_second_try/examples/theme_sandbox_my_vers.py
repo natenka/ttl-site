@@ -9,20 +9,12 @@ from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Container, Grid, Horizontal, VerticalScroll
 from textual.widgets import (
-    Button,
-    Collapsible,
-    DataTable,
     Footer,
     Header,
-    Input,
     Label,
     ListItem,
     ListView,
-    MarkdownViewer,
     OptionList,
-    ProgressBar,
-    RadioSet,
-    RichLog,
     Select,
     SelectionList,
     Switch,
@@ -34,15 +26,8 @@ from textual.widgets._masked_input import MaskedInput
 from textual.widgets._toggle_button import ToggleButton
 from textual.widgets.option_list import Option
 from textual.widgets.text_area import Selection
+from textual.reactive import reactive, var
 
-
-LOREM_IPSUM = """\
- Sed euismod, nunc sit amet aliquam lacinia, nisl nisl aliquam nisl, nec aliquam nisl nisl sit amet lorem.
-"""
-
-EXAMPLE_MARKDOWN = """\
-- Tables!
-"""
 
 def load_topics(questions_file):
     with open(questions_file) as f:
@@ -58,10 +43,6 @@ class TopicList(OptionList):
         )
 
 
-class ColorSample(Label):
-    pass
-
-
 class ChangingThemeApp(App[None]):
     CSS = """
     TopicList {
@@ -75,7 +56,7 @@ class ChangingThemeApp(App[None]):
         scrollbar-gutter: stable;
     }
 
-    ListView { 
+    ListView {
         height: auto;
 
     }
@@ -108,19 +89,8 @@ class ChangingThemeApp(App[None]):
             "Toggle Dark",
             tooltip="Switch between light and dark themes",
         ),
-        Binding(
-            "ctrl+a",
-            "toggle_panel",
-            "Toggle panel",
-            tooltip="Add or remove the panel class from the widget gallery",
-        ),
-        Binding(
-            "ctrl+b",
-            "toggle_border",
-            "Toggle border",
-            tooltip="Add or remove the borders from widgets",
-        ),
     ]
+    current_topic: reactive[str] = reactive("")
 
     def action_toggle_dark(self) -> None:
         self.theme = "textual-light" if self.theme == "textual-dark" else "textual-dark"
@@ -131,8 +101,6 @@ class ChangingThemeApp(App[None]):
     def compose(self) -> ComposeResult:
         self.title = "Theme Sandbox"
         self.all_topics = load_topics("questions.json")
-        self.current_topic = ""
-        self.current_topic_questions = None
 
         yield Header(show_clock=True)
         yield TopicList(id="topic-list")
@@ -151,6 +119,7 @@ class ChangingThemeApp(App[None]):
     @on(TopicList.OptionHighlighted, selector="#topic-list")
     def _change_theme(self, event: TopicList.OptionHighlighted) -> None:
         self.current_topic = event.option.id
+        self.app.theme = "textual-dark"
         # self.query_one(ListView).
 
 
