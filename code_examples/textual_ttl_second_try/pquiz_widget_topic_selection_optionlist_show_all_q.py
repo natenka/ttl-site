@@ -14,6 +14,8 @@ from textual.reactive import reactive, var
 from textual.highlight import highlight
 from textual.content import Content
 
+from rich.syntax import Syntax
+
 
 def load_topics(questions_file):
     with open(questions_file) as f:
@@ -64,18 +66,13 @@ class ChangingThemeApp(App):
     def _change_topic(self, event: TopicList.OptionHighlighted) -> None:
         self.current_topic = event.option.id
         code_view = self.query_one("#code", Static)
-        # code_view.update(self.topics[self.current_topic])
-        question_dict = {
-            "description": "Яке значення буде у змінної result в останньому рядку?",
-            "code": "data = {'hostname': 'london_r1', 'ip': '10.255.0.1', 'vendor': 'Cisco'}\nkeys = data.keys()\ndel data['ip']\nprint(keys)",
-        }
-        #code_view.update(
-        #    highlight(str(self.topics[self.current_topic]), language="Python")
-        #)
         create_content = ""
-        code_view.update(
-            Content(str(self.topics[self.current_topic]))
-        )
+        for question_dict in self.topics[self.current_topic]:
+            create_content += f"\n{question_dict['description']}\n{question_dict['code']}\n\n\t"
+            create_content += "\n\t".join(question_dict["answers"].values())
+            create_content += "\n\n\n"
+        # code_view.update(create_content)
+        code_view.update(Syntax(create_content, "python"))
 
 
 app = ChangingThemeApp()
