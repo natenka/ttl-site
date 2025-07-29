@@ -1,0 +1,27 @@
+Screen {
+    align: center middle;
+    }
+
+TextArea {
+    height: auto;
+    margin: 1 2;
+    border: none;
+    scrollbar-gutter: stable;
+}
+
+SelectionList {
+    border: none;
+}
+
+#label-variants {
+    & > Label {
+        padding: 0 1;
+        margin-right: 1;
+    }
+}
+
+#widget-list > * {
+    margin: 1 2;
+}
+
+

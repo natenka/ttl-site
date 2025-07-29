@@ -8,9 +8,20 @@ from textual._on import on
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Container, Grid, Horizontal, VerticalScroll
-from textual.widgets import Footer, Header, Static, DataTable, TextArea, Input, Label
+from textual.widgets import (
+    Footer,
+    Header,
+    Static,
+    TextArea,
+    Input,
+    Label,
+    SelectionList,
+    Pretty,
+    Rule,
+)
 from textual.reactive import reactive, var
 from textual.highlight import highlight
+from textual.events import Mount
 
 
 def load_topics(questions_file):
@@ -20,13 +31,13 @@ def load_topics(questions_file):
 
 
 class ChangingThemeApp(App):
-    CSS_PATH = "pynenguk_quiz_draft.tcss"
+    CSS_PATH = "pynenguk_quiz_draft_selectionlist.tcss"
 
     def compose(self) -> ComposeResult:
         self.title = "Theme Sandbox"
         question_dict = {
             "description": "Яке значення буде у змінної result в останньому рядку?",
-            "code": "string = 'interface'\nresult = string[3]",
+            "code": "data = {'hostname': 'london_r1', 'ip': '10.255.0.1', 'vendor': 'Cisco'}\nkeys = data.keys()\ndel data['ip']\nprint(keys)",
             "answers": {
                 "1": "'t'",
                 "2": "'inte'",
@@ -34,30 +45,44 @@ class ChangingThemeApp(App):
                 "4": "'e'",
                 "5": "'r'",
                 "6": "Помилка",
+                "7": "result = data.setdefault(200)",
+                "8": "result = data.get(200)",
+                "9": "result = data[200]",
             },
             "correct_answer": "4",
             "multiple_choices": False,
         }
-        self.question_dict = question_dict
 
         yield Header(show_clock=True)
 
         with VerticalScroll(id="widget-list", can_focus=False) as container:
-            yield Label(f"Питання 1 з 30")
-            yield Label(question_dict['description'])
-            yield TextArea.code_editor(question_dict["code"], language="python", read_only=True)
-            yield DataTable(cursor_type="row") # works with RowHighlighted
-            yield Input(placeholder="Enter number")
+            yield Label("Питання 1 з 30")
+            yield Label(question_dict["description"])
+            # To enable syntax highlighting, you'll need to install the syntax
+            # extra dependencies:
+            # pip install textual[syntax]
+            yield TextArea.code_editor(
+                question_dict["code"],
+                language="python",
+                read_only=True,
+                show_cursor=False,
+                compact=True,
+            )
+            # yield Rule(line_style="heavy")
+            yield Label("Виберіть правильні відповіді за допомогою миші або пробілом")
+            reverse_key_value = {v: k for k, v in question_dict["answers"].items()}
+            yield SelectionList(*reverse_key_value.items())
+            yield Pretty([])
         yield Footer()
 
     def on_mount(self) -> None:
-        self.theme = "textual-dark"
-        answers = self.question_dict["answers"]
+        self.query_one(Pretty).border_title = "Selected games"
+        self.query_one(SelectionList).focus()
 
-        table = self.query_one(DataTable)
-        table.add_columns("Номер відповіді", "Відповідь")
-        for num, ans in answers.items():
-            table.add_row(num, ans)
+    @on(Mount)
+    @on(SelectionList.SelectedChanged)
+    def update_selected_view(self) -> None:
+        self.query_one(Pretty).update(self.query_one(SelectionList).selected)
 
 
 app = ChangingThemeApp()
