@@ -27,6 +27,10 @@ def load_topics(questions_file):
         return q_dict
 
 
+class QuestionsPreview(Static, can_focus=True):
+    pass
+
+
 class TopicList(OptionList):
     def on_mount(self) -> None:
         TOPICS = load_topics("questions.json")
@@ -34,7 +38,7 @@ class TopicList(OptionList):
 
 
 class ChangingThemeApp(App):
-    CSS_PATH = "pynenguk_quiz_draft.tcss"
+    CSS_PATH = "pynenguk_quiz_draft_focus.tcss"
 
     BINDINGS = [
         Binding(
@@ -60,7 +64,8 @@ class ChangingThemeApp(App):
         yield Header(show_clock=True)
         yield TopicList(id="topic-list")
         with VerticalScroll(id="widget-list", can_focus=False) as container:
-            yield Static(id="code", expand=True)
+            # yield Static(id="code", expand=True)
+            yield QuestionsPreview(id="code", expand=True)
         yield Footer()
 
     def on_mount(self) -> None:
@@ -69,13 +74,14 @@ class ChangingThemeApp(App):
     @on(TopicList.OptionHighlighted, selector="#topic-list")
     def _change_topic(self, event: TopicList.OptionHighlighted) -> None:
         self.current_topic = event.option.id
-        code_view = self.query_one("#code", Static)
+        # code_view = self.query_one("#code", Static)
+        code_view = self.query_one("#code", QuestionsPreview)
 
         table = Table(
             "Огляд питань розділу\n(натисніть Enter, щоб відкрити питання обраного розділу)",
             box=box.SIMPLE,
             padding=(1, 1, 0, 1),
-            header_style=Style(color="red", bold=True)
+            header_style=Style(color="red", bold=True),
         )
         for question_dict in self.topics[self.current_topic]:
             table.add_row(question_dict["description"])

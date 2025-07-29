@@ -1,0 +1,13 @@
+TopicList {
+    height: 1fr;
+    width: 30%;
+    dock: left;
+    margin-bottom: 1;
+}
+
+QuestionsPreview {
+    &:focus {  
+        border: tall $primary;
+    }
+}
+
