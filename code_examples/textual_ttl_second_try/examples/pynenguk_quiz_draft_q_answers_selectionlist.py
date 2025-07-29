@@ -32,6 +32,11 @@ def load_topics(questions_file):
 
 class ChangingThemeApp(App):
     CSS_PATH = "pynenguk_quiz_draft_selectionlist.tcss"
+    # Individual bindings may be marked as a priority, which means they will be
+    # checked prior to the bindings of the focused widget
+    BINDINGS = [
+        Binding("enter", "check_answers", "Check answers", priority=True),
+    ]
 
     def compose(self) -> ComposeResult:
         self.title = "Theme Sandbox"
@@ -68,12 +73,15 @@ class ChangingThemeApp(App):
                 show_cursor=False,
                 compact=True,
             )
-            # yield Rule(line_style="heavy")
             yield Label("Виберіть правильні відповіді за допомогою миші або пробілом")
             reverse_key_value = {v: k for k, v in question_dict["answers"].items()}
             yield SelectionList(*reverse_key_value.items())
             yield Pretty([])
         yield Footer()
+
+    def action_check_answers(self) -> None:
+        self.mount(Rule(line_style="heavy"))
+        self.call_after_refresh(self.screen.scroll_end, animate=False)
 
     def on_mount(self) -> None:
         self.query_one(Pretty).border_title = "Selected games"
