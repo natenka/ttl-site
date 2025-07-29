@@ -147,7 +147,7 @@
       "description": "Що виведе останній рядок?",
       "code": "d1 = d2 = {1: 100, 2: 200, 3: 300}\nd1[4] = 400\nprint(d2[4])",
       "answers": {
-        "1": "Исключение KeyError",
+        "1": "Виняток KeyError",
         "2": "300",
         "3": "400"
       },
@@ -322,7 +322,7 @@
       "code": "In [1]: var_a = 3500\n\nIn [2]: var_b = var_a\n\nIn [3]: id(var_a)\nOut[2]: 3044598608",
       "answers": {
         "1": "3044598608",
-        "2": "Другое"
+        "2": "Інше"
       },
       "correct_answer": "1",
       "multiple_choices": false
@@ -346,7 +346,7 @@
       "code": "In [1]: var_a = 3500\n\nIn [2]: var_b = 3500\n\nIn [3]: id(var_a)\nOut[3]: 3044599696",
       "answers": {
         "1": "3044599696",
-        "2": "Другое"
+        "2": "Інше"
       },
       "correct_answer": "2",
       "multiple_choices": false
@@ -404,9 +404,9 @@
       "multiple_choices": true
     }
   ],
-  "05 Створення базових скриптів (input, sys.argv)": [
+  "05 Створення базових скриптів. Input, sys.argv": [
     {
-      "description": "Який тип даних буде в змінній result при виклику скрипта нижче таким чином:\n$ python script.py 100",
+      "description": "Який тип даних буде в змінній result, коли наведений нижче скрипт викликається таким чином:\n$ python script.py 100",
       "code": "from sys import argv\nresult = argv",
       "answers": {
         "1": "список (list)",
@@ -417,7 +417,7 @@
       "multiple_choices": false
     },
     {
-      "description": "Які типи даних будуть у елементів списку argv при виклику скрипта нижче таким чином::\n$ python script.py 100 test",
+      "description": "Які типи даних будуть у елементів списку argv, коли наведений нижче скрипт викликається таким чином::\n$ python script.py 100 test",
       "code": "from pprint import pprint\nfrom sys import argv\npprint(argv)",
       "answers": {
         "1": "список (list)",
@@ -428,7 +428,7 @@
       "multiple_choices": true
     },
     {
-      "description": "Яке значення буде у змінної result при виклику скрипта нижче таким чином:\n$ python script.py test",
+      "description": "Яке значення буде у змінної result, коли наведений нижче скрипт викликається таким чином:\n$ python script.py test",
       "code": "from sys import argv\nresult = argv[0]",
       "answers": {
         "1": "''",
@@ -440,7 +440,7 @@
       "multiple_choices": false
     },
     {
-      "description": "Яке значення буде у змінної result при виклику скрипта нижче таким чином:\n$ python script.py 100 test",
+      "description": "Яке значення буде у змінної result, коли наведений нижче скрипт викликається таким чином:\n$ python script.py 100 test",
       "code": "from sys import argv\nresult = argv[1]",
       "answers": {
         "1": "'test'",
@@ -453,8 +453,8 @@
       "multiple_choices": false
     },
     {
-      "description": "Який тип даних буде в змінній result при виклику скрипта нижче таким чином:\n$ python script.py\nВведите число: 100",
-      "code": "result = input('Введите число: ')",
+      "description": "Який тип даних буде в змінній result, коли наведений нижче скрипт викликається таким чином:\n$ python script.py\nВведіть число: 100",
+      "code": "result = input('Введіть число: ')",
       "answers": {
         "1": "список (list)",
         "2": "рядок (str)",
@@ -464,7 +464,7 @@
       "multiple_choices": false
     }
   ],
-  "06 Контроль ходу програми (if/elif/else)": [
+  "06 Контроль ходу програми. If/elif/else": [
     {
       "description": "Яке значення виведе останній рядок?",
       "code": "value = 55\n\nif 0 < value < 33:\n    value = 50\n    value += 1\nif 33 < value < 100:\n    value = 57\n    value -= 5\nif value > 30:\n    value += 100\nelse:\n    value = 8\n\nprint(value)",
@@ -510,18 +510,18 @@
     },
     {
       "description": "Що буде виведено на стандартний потік виводу? (значення, що виводяться на різних рядках, розділені комою)",
-      "code": "user = 'admin'\npasswd = 'admin12'\n\nif len(passwd) <= 8:\n    print('Пароль слишком короткий')\nif user in passwd:\n    print('Пароль содержит имя пользователя')\nelse:\n    print('Пароль для пользователя установлен')\n",
+      "code": "user = 'admin'\npasswd = 'admin12'\n\nif len(passwd) <= 8:\n    print('Пароль надто короткий')\nif user in passwd:\n    print('Пароль містить ім'я користувача')\nelse:\n    print('Пароль для користувача встановлено')\n",
       "answers": {
-        "1": "Пароль слишком короткий",
-        "2": "Пароль содержит имя пользователя",
-        "3": "Пароль слишком короткий, Пароль содержит имя пользователя",
-        "4": "Пароль для пользователя установлен"
+        "1": "Пароль надто короткий",
+        "2": "Пароль містить ім'я користувача",
+        "3": "Пароль надто короткий, Пароль містить ім'я користувача",
+        "4": "Пароль для користувача встановлено"
       },
       "correct_answer": "3",
       "multiple_choices": false
     }
   ],
-  "06 Контроль ходу програми (try/except)": [
+  "06 Контроль ходу програми. Try/except": [
     {
       "description": "Що буде виведено на стандартний потік виводу? (значення, що виводяться на різних рядках, розділені комою)",
       "code": "num = 'a'\n\ntry:\n    hexnum = int(num, 16)\nexcept ValueError:\n    print('Error')\nelse:\n    print(hexnum)",
@@ -563,7 +563,7 @@
       "multiple_choices": false
     }
   ],
-  "06 Контроль ходу програми (цикли)": [
+  "06 Контроль ходу програми. Цикли": [
     {
       "description": "Який код згенерує такий вивід?",
       "code": "2\n4\n6\n8\n10",
@@ -747,7 +747,7 @@
       "multiple_choices": false
     }
   ],
-  "09 Функції": [
+  "09 Функції. 1 частина": [
     {
       "description": "Яке значення буде у змінній result?",
       "code": "def func1(a, b):\n    if type(a) == int:\n        return a\n    elif type(b) == int:\n        return b\n\nresult = func1(4, 3, 5)",
@@ -893,7 +893,7 @@
 	  "multiple_choices": false
     }
   ],
-  "09 Функції. Продовження": [
+  "09 Функції. 2 частина": [
     {
       "description": "Яке значення буде у змінній result?",
       "code": "def func1(var1, var2):\n    if var1:\n        return var1\n    elif var2:\n        return var2\n\ndef func2(var3, var4):\n    return func1(var3, var3 > var4)\n\nresult = func2(5, 3)",
@@ -996,7 +996,7 @@
       "multiple_choices": true
     },
     {
-      "description": "Що буде виведено на стандартний потік виведення під час виклику скрипту script2.py? (значення, що виводяться на різних рядках, розділені комою)",
+      "description": "Що буде виведено на стандартний потік виведення після виклику скрипта script2.py? (значення, що виводяться на різних рядках, розділені комою)",
       "code": "# script1.py\n\ndef func1(num1, num2):\n    return num1 + num2\n\nprint(func1(5, 2))\n\n# script2.py\nfrom script1 import func1\n\nprint(func1(10, 1))",
       "answers": {
         "1": "7",
@@ -1009,7 +1009,7 @@
       "multiple_choices": false
     },
     {
-      "description": "Що буде виведено на стандартний потік виведення під час виклику скрипту script2.py? (значення, що виводяться на різних рядках, розділені комою)",
+      "description": "Що буде виведено на стандартний потік виведення після виклику скрипта script2.py? (значення, що виводяться на різних рядках, розділені комою)",
       "code": "##### script1.py\n\ndef func1(num1, num2):\n    return num1 + num2\n\nif __name__ == '__main__':\n    print(func1(5, 2))\n\n##### script2.py\nfrom script1 import func1\n\nif __name__ == '__main__':\n    print(func1(10, 1))",
       "answers": {
         "1": "7",
@@ -1022,7 +1022,7 @@
       "multiple_choices": false
     }
   ],
-  "15 Регулярні вирази": [
+  "15 Регулярні вирази. 1 частина": [
     {
       "description": "Виберіть усі значення рядка line, при яких буде знайдено збіг з регулярним виразом",
       "code": "m = re.search(r'ab+a', line)",
@@ -1182,7 +1182,7 @@
       "multiple_choices": true
     }
   ],
-  "15 Регулярні вирази. Продовження": [
+  "15 Регулярні вирази. 2 частина": [
     {
       "description": "Яке значення буде у змінній result?",
       "code": "line = '100   aabb.cc10.7000    DYNAMIC      Gi0/1'\nm = re.search(r'(\\d+).+(\\S+)', line)\nresult = m.groups()",

@@ -8,23 +8,10 @@ from textual._on import on
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Container, Grid, Horizontal, VerticalScroll
-from textual.widgets import (
-    Footer,
-    Header,
-    Label,
-    OptionList,
-    Select,
-    SelectionList,
-    Switch,
-    TabbedContent,
-    TextArea,
-    Tree,
-    Static
-)
+from textual.widgets import Footer, Header, OptionList, Static
 from textual.widgets._masked_input import MaskedInput
 from textual.widgets._toggle_button import ToggleButton
 from textual.widgets.option_list import Option
-from textual.widgets.text_area import Selection
 from textual.reactive import reactive, var
 
 
@@ -76,9 +63,8 @@ class ChangingThemeApp(App):
         self.theme = "textual-dark"
 
     @on(TopicList.OptionHighlighted, selector="#topic-list")
-    def _change_theme(self, event: TopicList.OptionHighlighted) -> None:
+    def _change_topic(self, event: TopicList.OptionHighlighted) -> None:
         self.current_topic = event.option.id
-        # self.app.theme = "textual-dark"
         code_view = self.query_one("#code", Static)
         # code_view.update(self.topics[self.current_topic])
         code_view.update(str(self.topics[self.current_topic]))
