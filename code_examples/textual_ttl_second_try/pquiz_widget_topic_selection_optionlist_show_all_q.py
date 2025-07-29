@@ -65,8 +65,16 @@ class ChangingThemeApp(App):
         self.current_topic = event.option.id
         code_view = self.query_one("#code", Static)
         # code_view.update(self.topics[self.current_topic])
+        question_dict = {
+            "description": "Яке значення буде у змінної result в останньому рядку?",
+            "code": "data = {'hostname': 'london_r1', 'ip': '10.255.0.1', 'vendor': 'Cisco'}\nkeys = data.keys()\ndel data['ip']\nprint(keys)",
+        }
+        #code_view.update(
+        #    highlight(str(self.topics[self.current_topic]), language="Python")
+        #)
+        create_content = ""
         code_view.update(
-            highlight(str(self.topics[self.current_topic]), language="Python")
+            Content(str(self.topics[self.current_topic]))
         )
 
 

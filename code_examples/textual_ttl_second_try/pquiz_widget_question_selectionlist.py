@@ -37,6 +37,8 @@ class ChangingThemeApp(App):
     BINDINGS = [
         Binding("enter", "check_answers", "Check answers", priority=True),
     ]
+    # enter binding made inside checkbox
+    # https://textual.textualize.io/widgets/checkbox/
 
     def compose(self) -> ComposeResult:
         self.title = "Theme Sandbox"
