@@ -8,9 +8,10 @@ from textual._on import on
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Container, Grid, Horizontal, VerticalScroll
-from textual.widgets import Footer, Header, OptionList, Static
+from textual.widgets import Footer, Header, OptionList, Static, Pretty
 from textual.widgets.option_list import Option
 from textual.reactive import reactive, var
+from textual.highlight import highlight
 
 
 def load_topics(questions_file):
@@ -22,9 +23,7 @@ def load_topics(questions_file):
 class TopicList(OptionList):
     def on_mount(self) -> None:
         TOPICS = load_topics("questions.json")
-        self.add_options(
-            [Option(name, id=name) for name in TOPICS]
-        )
+        self.add_options([Option(name, id=name) for name in TOPICS])
 
 
 class ChangingThemeApp(App):
@@ -65,7 +64,9 @@ class ChangingThemeApp(App):
         self.current_topic = event.option.id
         code_view = self.query_one("#code", Static)
         # code_view.update(self.topics[self.current_topic])
-        code_view.update(str(self.topics[self.current_topic]))
+        code_view.update(
+            highlight(str(self.topics[self.current_topic]), language="Python")
+        )
 
 
 app = ChangingThemeApp()
