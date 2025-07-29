@@ -1,0 +1,33 @@
+TopicTree {
+    height: 1fr;
+    width: 40%;
+    dock: left;
+    margin-bottom: 1;
+}
+TextArea {
+    height: 8;
+    scrollbar-gutter: stable;
+}
+
+#label-variants {
+    & > Label {
+        padding: 0 1;
+        margin-right: 1;
+    }
+}
+
+#widget-list {
+    & > OptionList {
+        height: 6;
+    }
+    & > RadioSet {
+        height: 6;
+    }
+}
+#widget-list {
+}
+#widget-list > * {
+    margin: 1 2;
+}
+
+

@@ -67,7 +67,8 @@ class ChangingThemeApp(App):
         self.current_topic = event.option.id
         code_view = self.query_one("#code", Static)
         # code_view.update(self.topics[self.current_topic])
-        code_view.update(str(self.topics[self.current_topic]))
+        # code_view.update(str(self.topics[self.current_topic]))
+        code_view.update("Long text")
 
 
 app = ChangingThemeApp()

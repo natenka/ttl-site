@@ -9,8 +9,6 @@ from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Container, Grid, Horizontal, VerticalScroll
 from textual.widgets import Footer, Header, OptionList, Static
-from textual.widgets._masked_input import MaskedInput
-from textual.widgets._toggle_button import ToggleButton
 from textual.widgets.option_list import Option
 from textual.reactive import reactive, var
 
