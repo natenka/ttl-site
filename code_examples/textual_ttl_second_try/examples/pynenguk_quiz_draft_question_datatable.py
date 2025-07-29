@@ -8,8 +8,7 @@ from textual._on import on
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Container, Grid, Horizontal, VerticalScroll
-from textual.widgets import Footer, Header, Static, DataTable
-from textual.widgets.option_list import Option
+from textual.widgets import Footer, Header, Static, DataTable, TextArea, Input, Label
 from textual.reactive import reactive, var
 from textual.highlight import highlight
 
@@ -25,14 +24,6 @@ class ChangingThemeApp(App):
 
     def compose(self) -> ComposeResult:
         self.title = "Theme Sandbox"
-
-        yield Header(show_clock=True)
-        with VerticalScroll(id="widget-list", can_focus=False) as container:
-            yield DataTable()
-        yield Footer()
-
-    def on_mount(self) -> None:
-        self.theme = "textual-dark"
         question_dict = {
             "description": "Яке значення буде у змінної result в останньому рядку?",
             "code": "string = 'interface'\nresult = string[3]",
@@ -47,13 +38,26 @@ class ChangingThemeApp(App):
             "correct_answer": "4",
             "multiple_choices": False,
         }
+        self.question_dict = question_dict
+
+        yield Header(show_clock=True)
+
+        with VerticalScroll(id="widget-list", can_focus=False) as container:
+            yield Label(f"Питання 1 з 30")
+            yield Label(question_dict['description'])
+            yield TextArea.code_editor(question_dict["code"], language="python", read_only=True)
+            yield DataTable(cursor_type="row") # works with RowHighlighted
+            yield Input(placeholder="Enter number")
+        yield Footer()
+
+    def on_mount(self) -> None:
+        self.theme = "textual-dark"
+        answers = self.question_dict["answers"]
 
         table = self.query_one(DataTable)
-        table.add_columns(f"Питання 1 з 30\n{question_dict['description']}\n")
-        table.add_row(question_dict['description'])
-        table.add_row(question_dict["code"])
-        table.add_row(question_dict["answers"])
-        table.add_row("Enter number: ")
+        table.add_columns("Номер відповіді", "Відповідь")
+        for num, ans in answers.items():
+            table.add_row(num, ans)
 
 
 app = ChangingThemeApp()
