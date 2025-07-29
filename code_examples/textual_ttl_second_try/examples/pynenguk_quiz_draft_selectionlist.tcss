@@ -1,5 +1,6 @@
 Screen {
     align: center middle;
+    padding: 1 2;
     }
 
 TextArea {
