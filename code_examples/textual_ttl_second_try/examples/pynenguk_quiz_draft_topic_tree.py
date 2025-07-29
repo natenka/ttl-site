@@ -32,7 +32,7 @@ class TopicTree(Tree):
 
 
 class ChangingThemeApp(App):
-    CSS_PATH = "pynenguk_quiz_draft.tcss"
+    CSS_PATH = "pynenguk_quiz_draft_tree.tcss"
 
     BINDINGS = [
         Binding(
@@ -70,7 +70,7 @@ class ChangingThemeApp(App):
         code_view = self.query_one("#code", Static)
         # code_view.update(self.topics[self.current_topic])
         # code_view.update(str(self.topics[self.current_topic]))
-        code_view.update(f"Long text {self.current_topic}")
+        code_view.update(f"Long text {event.node} {event.control}")
 
 
 app = ChangingThemeApp()
