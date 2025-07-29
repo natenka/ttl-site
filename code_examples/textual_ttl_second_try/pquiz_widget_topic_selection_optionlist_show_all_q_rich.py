@@ -17,6 +17,7 @@ from textual.content import Content
 from rich import box
 from rich.padding import Padding
 from rich.syntax import Syntax
+from rich.style import Style
 from rich.table import Table
 
 
@@ -70,16 +71,20 @@ class ChangingThemeApp(App):
         self.current_topic = event.option.id
         code_view = self.query_one("#code", Static)
 
-        table = Table("Questions review", box=box.SIMPLE)
+        table = Table(
+            "Огляд питань розділу\n(натисніть ctrl-s, щоб відкрити питання обраного розділу)",
+            box=box.SIMPLE,
+            padding=(1, 1, 0, 1),
+            header_style=Style(color="red", bold=True)
+        )
         for question_dict in self.topics[self.current_topic]:
-            table.add_row(question_dict['description'])
-            table.add_row(Syntax(question_dict['code'], "python"))
-            answers = "\n".join(question_dict['answers'].values())
+            table.add_row(question_dict["description"])
+            table.add_row(Syntax(question_dict["code"], "python"))
+            answers = "\n".join(question_dict["answers"].values())
             if question_dict.get("code_in_answer"):
                 answers = Syntax(answers, "python")
             table.add_row(Padding(answers, (0, 5)))
             table.add_row()
-        # code_view.update(create_content)
         code_view.update(table)
 
 
