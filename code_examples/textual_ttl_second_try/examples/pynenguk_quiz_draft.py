@@ -12,8 +12,6 @@ from textual.widgets import (
     Footer,
     Header,
     Label,
-    ListItem,
-    ListView,
     OptionList,
     Select,
     SelectionList,
@@ -44,44 +42,8 @@ class TopicList(OptionList):
         )
 
 
-class ChangingThemeApp(App[None]):
-    CSS = """
-    TopicList {
-        height: 1fr;
-        width: 30%;
-        dock: left;
-        margin-bottom: 1;
-    }
-    TextArea {
-        height: 8;
-        scrollbar-gutter: stable;
-    }
-
-    ListView {
-        height: auto;
-
-    }
-    #label-variants {
-        & > Label {
-            padding: 0 1;
-            margin-right: 1;
-        }
-    }
-
-    #widget-list {
-        & > OptionList {
-            height: 6;
-        }
-        & > RadioSet {
-            height: 6;
-        }
-    }
-    #widget-list {
-    }
-    #widget-list > * {
-        margin: 1 2;
-    }
-    """
+class ChangingThemeApp(App):
+    CSS_PATH = "pynenguk_quiz_draft.tcss"
 
     BINDINGS = [
         Binding(
@@ -111,7 +73,7 @@ class ChangingThemeApp(App[None]):
         yield Footer()
 
     def on_mount(self) -> None:
-        self.theme = "textual-light"
+        self.theme = "textual-dark"
 
     @on(TopicList.OptionHighlighted, selector="#topic-list")
     def _change_theme(self, event: TopicList.OptionHighlighted) -> None:
