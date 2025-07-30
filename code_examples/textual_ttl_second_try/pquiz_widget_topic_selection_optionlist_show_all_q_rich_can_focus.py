@@ -2,6 +2,10 @@
 # with text pquiz_widget_topic_selection_optionlist_show_all_q.py
 # without focus pquiz_widget_topic_selection_optionlist_show_all_q_rich.py
 
+# Basic version
+# without nice preview of questions
+# pquiz_widget_topic_selection_optionlist.py
+
 from __future__ import annotations
 
 from functools import partial
