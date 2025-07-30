@@ -83,4 +83,15 @@ Action methods are methods on your app or widgets prefixed with action_. Aside
 from the prefix these are regular methods which you could call directly if you
 wished.
 
+## Bindings
 
+Individual bindings may be marked as a priority, which means they will be
+checked prior to the bindings of the focused widget
+
+```python
+BINDINGS = [
+	Binding("enter", "check_answers", "Check answers", priority=True),
+]
+```
+
+`Enter` binding made inside [checkbox widget](https://textual.textualize.io/widgets/checkbox/)

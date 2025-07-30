@@ -62,8 +62,6 @@ class QuizTopicSelectionApp(App):
     topics = load_topics("questions.json")
 
     def compose(self) -> ComposeResult:
-        self.theme = "textual-dark"
-
         yield OptionList(
             *[Option(name, id=name) for name in self.topics], id="topic-list"
         )

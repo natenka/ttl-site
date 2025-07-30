@@ -22,7 +22,7 @@ from textual.widgets import (
 from textual.reactive import reactive, var
 from textual.events import Mount
 
-
+# Test data
 question_dict = {
     "description": "Яке значення буде у змінної result в останньому рядку?",
     "code": (
@@ -63,7 +63,7 @@ class Question(VerticalScroll):
         yield Pretty([])
 
     def on_mount(self) -> None:
-        """При відображенні запитання, фокус одразу на блоці відповідей"""
+        # При відображенні запитання, фокус одразу на блоці відповідей
         self.query_one(SelectionList).focus()
 
     @on(SelectionList.SelectedChanged)
@@ -74,18 +74,11 @@ class Question(VerticalScroll):
 
 class QuizQuestionsApp(App):
     CSS_PATH = "pynenguk_quiz_draft_selectionlist.tcss"
-    # Individual bindings may be marked as a priority, which means they will be
-    # checked prior to the bindings of the focused widget
     BINDINGS = [
         Binding("enter", "check_answers", "Check answers", priority=True),
     ]
-    # enter binding made inside checkbox widget
-    # https://textual.textualize.io/widgets/checkbox/
 
     def compose(self) -> ComposeResult:
-        self.title = "Theme Sandbox"
-
-        yield Header(show_clock=True)
         yield Question(id="question-widget", can_focus=False)
         yield Footer()
 
