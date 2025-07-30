@@ -1,33 +1,48 @@
+# To enable syntax highlighting, you'll need to install the syntax
+# extra dependencies:
+# pip install textual[syntax]
 from __future__ import annotations
 
 from functools import partial
 from typing import Any
-import json
 
-from textual._on import on
+from textual import on
 from textual.app import App, ComposeResult
 from textual.binding import Binding
-from textual.containers import Container, Grid, Horizontal, VerticalScroll
+from textual.containers import VerticalScroll
 from textual.widgets import (
     Footer,
     Header,
-    Static,
     TextArea,
-    Input,
     Label,
     SelectionList,
     Pretty,
     Rule,
 )
 from textual.reactive import reactive, var
-from textual.highlight import highlight
 from textual.events import Mount
 
 
-def load_topics(questions_file):
-    with open(questions_file, encoding="utf-8") as f:
-        q_dict = json.load(f)
-        return q_dict
+question_dict = {
+    "description": "Яке значення буде у змінної result в останньому рядку?",
+    "code": (
+        "data = {'hostname': 'london_r1', 'ip': '10.255.0.1', 'vendor': 'Cisco'}\n"
+        "keys = data.keys()\ndel data['ip']\nprint(keys)"
+    ),
+    "answers": {
+        "1": "'t'",
+        "2": "'inte'",
+        "3": "'int'",
+        "4": "'e'",
+        "5": "'r'",
+        "6": "Помилка",
+        "7": "result = data.setdefault(200)",
+        "8": "result = data.get(200)",
+        "9": "result = data[200]",
+    },
+    "correct_answer": "4",
+    "multiple_choices": False,
+}
 
 
 class ChangingThemeApp(App):
@@ -37,37 +52,17 @@ class ChangingThemeApp(App):
     BINDINGS = [
         Binding("enter", "check_answers", "Check answers", priority=True),
     ]
-    # enter binding made inside checkbox
+    # enter binding made inside checkbox widget
     # https://textual.textualize.io/widgets/checkbox/
 
     def compose(self) -> ComposeResult:
         self.title = "Theme Sandbox"
-        question_dict = {
-            "description": "Яке значення буде у змінної result в останньому рядку?",
-            "code": "data = {'hostname': 'london_r1', 'ip': '10.255.0.1', 'vendor': 'Cisco'}\nkeys = data.keys()\ndel data['ip']\nprint(keys)",
-            "answers": {
-                "1": "'t'",
-                "2": "'inte'",
-                "3": "'int'",
-                "4": "'e'",
-                "5": "'r'",
-                "6": "Помилка",
-                "7": "result = data.setdefault(200)",
-                "8": "result = data.get(200)",
-                "9": "result = data[200]",
-            },
-            "correct_answer": "4",
-            "multiple_choices": False,
-        }
 
         yield Header(show_clock=True)
 
         with VerticalScroll(id="widget-list", can_focus=False) as container:
             yield Label("Питання 1 з 30")
             yield Label(question_dict["description"])
-            # To enable syntax highlighting, you'll need to install the syntax
-            # extra dependencies:
-            # pip install textual[syntax]
             # ДОДАТИ перевірку на те чи є код в питанні
             yield TextArea.code_editor(
                 question_dict["code"],
@@ -83,15 +78,15 @@ class ChangingThemeApp(App):
         yield Footer()
 
     def action_check_answers(self) -> None:
-        # Роюимо вигляд, що робиться щось корисне після Enter
+        # Робимо вигляд, що робиться щось корисне після Enter
         # тут має бути перевірка чи правильні відповіді
         self.mount(Rule(line_style="heavy"))
         self.call_after_refresh(self.screen.scroll_end, animate=False)
 
     def on_mount(self) -> None:
+        """При відображенні запитання, фокус одразу на блоці відповідей"""
         self.query_one(SelectionList).focus()
 
-    @on(Mount)
     @on(SelectionList.SelectedChanged)
     def update_selected_view(self) -> None:
         # виводить список вибраних варіантів відповіді
