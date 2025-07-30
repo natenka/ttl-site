@@ -25,7 +25,7 @@ from textual.events import Mount
 
 
 def load_topics(questions_file):
-    with open(questions_file) as f:
+    with open(questions_file, encoding="utf-8") as f:
         q_dict = json.load(f)
         return q_dict
 
