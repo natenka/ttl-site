@@ -68,6 +68,7 @@ class ChangingThemeApp(App):
             # To enable syntax highlighting, you'll need to install the syntax
             # extra dependencies:
             # pip install textual[syntax]
+            # ДОДАТИ перевірку на те чи є код в питанні
             yield TextArea.code_editor(
                 question_dict["code"],
                 language="python",
@@ -82,16 +83,18 @@ class ChangingThemeApp(App):
         yield Footer()
 
     def action_check_answers(self) -> None:
+        # Роюимо вигляд, що робиться щось корисне після Enter
+        # тут має бути перевірка чи правильні відповіді
         self.mount(Rule(line_style="heavy"))
         self.call_after_refresh(self.screen.scroll_end, animate=False)
 
     def on_mount(self) -> None:
-        self.query_one(Pretty).border_title = "Selected games"
         self.query_one(SelectionList).focus()
 
     @on(Mount)
     @on(SelectionList.SelectedChanged)
     def update_selected_view(self) -> None:
+        # виводить список вибраних варіантів відповіді
         self.query_one(Pretty).update(self.query_one(SelectionList).selected)
 
 
