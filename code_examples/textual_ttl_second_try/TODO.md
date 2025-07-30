@@ -57,3 +57,30 @@ widget типу Static, тільки з фокусом, щоб працювал�
 ```
 
 Зі старої версії треба передивитися як зараз краще робити on_load/on_mount/on_key
+
+
+## Textual tutorial
+
+```python
+class StopwatchApp(App):
+    """A Textual app to manage stopwatches."""
+
+    BINDINGS = [("d", "toggle_dark", "Toggle dark mode")]
+```
+
+compose() is where we construct a user interface with widgets, by yielding them.
+
+Binding: key, action, description.
+
+action_toggle_dark() defines an action method. Actions are methods beginning
+with action_ followed by the name of the action. The BINDINGS list above tells
+Textual to run this action when the user hits the D key. See actions in the
+guide for details.
+
+Action method
+
+Action methods are methods on your app or widgets prefixed with action_. Aside
+from the prefix these are regular methods which you could call directly if you
+wished.
+
+
