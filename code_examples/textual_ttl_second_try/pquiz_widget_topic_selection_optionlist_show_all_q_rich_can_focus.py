@@ -1,3 +1,7 @@
+# Previous versions
+# with text pquiz_widget_topic_selection_optionlist_show_all_q.py
+# without focus pquiz_widget_topic_selection_optionlist_show_all_q_rich.py
+
 from __future__ import annotations
 
 from functools import partial
@@ -85,7 +89,9 @@ class ChangingThemeApp(App):
         )
         for question_dict in self.topics[self.current_topic]:
             table.add_row(question_dict["description"])
-            table.add_row(Syntax(question_dict["code"], "python"))
+            code = question_dict.get("code")
+            if code:
+                table.add_row(Syntax(question_dict["code"], "python"))
             answers = "\n".join(question_dict["answers"].values())
             if question_dict.get("code_in_answer"):
                 answers = Syntax(answers, "python")
