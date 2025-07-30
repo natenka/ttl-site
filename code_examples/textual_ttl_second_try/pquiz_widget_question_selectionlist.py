@@ -45,7 +45,34 @@ question_dict = {
 }
 
 
-class ChangingThemeApp(App):
+class Question(VerticalScroll):
+    def compose(self) -> ComposeResult:
+        yield Label("Питання 1 з 30")
+        yield Label(question_dict["description"])
+        # ДОДАТИ перевірку на те чи є код в питанні
+        yield TextArea.code_editor(
+            question_dict["code"],
+            language="python",
+            read_only=True,
+            show_cursor=False,
+            compact=True,
+        )
+        yield Label("Виберіть правильні відповіді за допомогою миші або пробілом")
+        reverse_key_value = {v: k for k, v in question_dict["answers"].items()}
+        yield SelectionList(*reverse_key_value.items())
+        yield Pretty([])
+
+    def on_mount(self) -> None:
+        """При відображенні запитання, фокус одразу на блоці відповідей"""
+        self.query_one(SelectionList).focus()
+
+    @on(SelectionList.SelectedChanged)
+    def update_selected_view(self) -> None:
+        # виводить список вибраних варіантів відповіді
+        self.query_one(Pretty).update(self.query_one(SelectionList).selected)
+
+
+class QuizQuestionsApp(App):
     CSS_PATH = "pynenguk_quiz_draft_selectionlist.tcss"
     # Individual bindings may be marked as a priority, which means they will be
     # checked prior to the bindings of the focused widget
@@ -59,22 +86,7 @@ class ChangingThemeApp(App):
         self.title = "Theme Sandbox"
 
         yield Header(show_clock=True)
-
-        with VerticalScroll(id="widget-list", can_focus=False) as container:
-            yield Label("Питання 1 з 30")
-            yield Label(question_dict["description"])
-            # ДОДАТИ перевірку на те чи є код в питанні
-            yield TextArea.code_editor(
-                question_dict["code"],
-                language="python",
-                read_only=True,
-                show_cursor=False,
-                compact=True,
-            )
-            yield Label("Виберіть правильні відповіді за допомогою миші або пробілом")
-            reverse_key_value = {v: k for k, v in question_dict["answers"].items()}
-            yield SelectionList(*reverse_key_value.items())
-            yield Pretty([])
+        yield Question(id="question-widget", can_focus=False)
         yield Footer()
 
     def action_check_answers(self) -> None:
@@ -83,16 +95,7 @@ class ChangingThemeApp(App):
         self.mount(Rule(line_style="heavy"))
         self.call_after_refresh(self.screen.scroll_end, animate=False)
 
-    def on_mount(self) -> None:
-        """При відображенні запитання, фокус одразу на блоці відповідей"""
-        self.query_one(SelectionList).focus()
 
-    @on(SelectionList.SelectedChanged)
-    def update_selected_view(self) -> None:
-        # виводить список вибраних варіантів відповіді
-        self.query_one(Pretty).update(self.query_one(SelectionList).selected)
-
-
-app = ChangingThemeApp()
 if __name__ == "__main__":
+    app = QuizQuestionsApp()
     app.run()

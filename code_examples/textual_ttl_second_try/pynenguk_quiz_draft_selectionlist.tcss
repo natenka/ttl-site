@@ -21,7 +21,7 @@ SelectionList {
     }
 }
 
-#widget-list > * {
+#question-widget > * {
     margin: 1 2;
 }
 
