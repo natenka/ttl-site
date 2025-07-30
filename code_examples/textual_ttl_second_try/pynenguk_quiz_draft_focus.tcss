@@ -1,4 +1,4 @@
-TopicList {
+OptionList {
     height: 1fr;
     width: 30%;
     dock: left;
