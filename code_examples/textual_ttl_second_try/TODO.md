@@ -33,7 +33,10 @@ widget типу Static, тільки з фокусом, щоб працювал�
 pquiz_widget_question_selectionlist.py є віджет Question.
 
 Раніше передавала стандартно через init. Треба почитати, може є щось цікаве в
-новій версії textual
+новій версії textual.
+
+Може щось на стадії on_mount чи подібне можна додати?
+Після створення віджета. Чи через reactive attr.
 
 ### чи можна робити update чи аналог не static widget, а чомусь іншому?
 
@@ -102,3 +105,8 @@ BINDINGS = [
 ```
 
 `Enter` binding made inside [checkbox widget](https://textual.textualize.io/widgets/checkbox/)
+
+## CSS
+
+* padding - child widgets (inside stopwatch)
+* margin between widgets (between stopwatch instances)
