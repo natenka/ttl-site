@@ -120,6 +120,13 @@ example:
 * textual
 * переробити утиліту pyneng-quiz на нову версію textual 1.0.0
 
+## pquiz
+
+Додати питання по try/except/else/finally, де треба буде розмістити правильно
+повідомлення і які саме будуть.
+
+Не знаю чи варто додавати важчі задачі на комбінацію try/except з break/return.
+
 
 ### textual + pyneng-cli
 
